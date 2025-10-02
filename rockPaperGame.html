@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rock paper scissors game</title>
+
+  <style>
+    body {
+      background-color: rgb(29, 29, 29);
+    }
+
+
+    button {
+      border-radius: 50%;
+      border: .15px solid white;
+      border-style: none;
+      margin-left: 15px;
+    }
+
+    button:active {
+      transform: scale(1.2);
+    }
+
+    img , #yourChoise , #computerChoise {
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgb(29, 29, 29);
+      padding: 20px 20px;
+      margin-top: 3px;
+    }
+
+    #yourChoise , #computerChoise {
+      vertical-align: middle;
+    }
+
+
+    h1 , h2 , #choises , #grades{
+      color:white;
+      
+    }
+
+    #grades {
+      margin-top: 30px;
+    }
+
+    span {
+      margin-left: 7px;
+      vertical-align: middle;
+    }
+
+    #reset {
+      background-color: rgb(241, 241, 241);
+      color: black;
+      padding: 10px 30px;
+      border-radius: 0%;
+      margin-top: 20px;
+      margin-left: 0px;
+      font-size:20px;
+      font-weight: 700;
+      transition: opacity .3s;
+    }
+
+    #reset:active {
+      opacity: .6;
+    }
+
+
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors Game</h1>
+  <button onclick="btn1('rock')">
+    <img src="https://supersimple.dev/projects/rock-paper-scissors/images/rock-emoji.png" alt="rock hand">
+  </button>
+
+
+<button onclick="btn1('paper')"> 
+  <img src="https://supersimple.dev/projects/rock-paper-scissors/images/paper-emoji.png" alt="paper hand">
+</button>
+
+
+<button onclick="btn1('scissors')"> 
+  <img src="	https://supersimple.dev/projects/rock-paper-scissors/images/scissors-emoji.png" alt="scissors">
+</button>
+
+
+<h2 id="Score"></h2>
+
+<div id="choises">
+  <span>You</span><img id="yourChoise">
+  <img src="" alt="" id="computerChoise"><span>Computer</span>
+</div>
+
+<div id="grades">
+  <span>Wins:</span><span id="win"></span>
+  <span>Losses:</span><span id="lose"></span>
+  <span>Ties:</span><span id="tie"></span>
+
+</div>
+
+
+<button onclick="resetScore ()" id=reset>
+  Reset the score
+</button>
+
+
+<script>
+  let randomChoose;
+  let scoreDashBoard = document.getElementById('Score');
+  let you = document.getElementById('yourChoise');
+  let computer = document.getElementById('computerChoise');
+  let winChoise = document.getElementById('win');
+  let loseChoise = document.getElementById('lose');
+  let tieChoise = document.getElementById('tie');
+
+  let playScore = JSON.parse(localStorage.getItem('score')) || {
+    wins:0,
+    ties: 0,
+    losses: 0
+  };
+  
+// another short cut instead of ||
+  //   if (!playScore){
+  //     playScore = {
+  //           wins:0,
+  //           ties: 0,
+  //           losses: 0
+  //     };
+  // }
+
+
+
+  winChoise.textContent = playScore.wins;
+  loseChoise.textContent = playScore.losses;
+  tieChoise.textContent = playScore.ties;
+
+
+
+
+
+  function checkThRandomNum (){
+    randomChoose = Math.random();
+    if (randomChoose >= 0 && randomChoose <= 1/3 ){
+    comChoise = 'rock'; 
+    }else if (randomChoose > 1/3 && randomChoose <= 2/3 ){
+    comChoise = 'paper'; 
+    } else {
+    comChoise = 'scissors';
+    }
+
+    return comChoise;
+  }
+
+
+function resetScore (){
+  playScore = { wins: 0, losses: 0, ties: 0 }; // reset memory
+  localStorage.removeItem('score');
+  winChoise.textContent =  0;
+  loseChoise.textContent = 0;
+  tieChoise.textContent = 0;
+  you.src = "";
+  computer.src = "";
+}
+
+
+
+  function btn1(moveYouPicked){
+    let choise = checkThRandomNum();
+
+    if (moveYouPicked === "rock"){
+      if (choise === 'rock'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/rock-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/rock-emoji.png";
+        scoreDashBoard.textContent = 'tie';
+      }
+
+      if (choise === 'paper'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/rock-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/paper-emoji.png";
+        scoreDashBoard.textContent = 'you lost';
+      }
+
+      if (choise === 'scissor'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/rock-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/scissors-emoji.png";
+        scoreDashBoard.textContent = "you won";
+      }
+    }
+
+    
+    else if (moveYouPicked === "paper"){
+      if (choise === 'rock'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/paper-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/rock-emoji.png";
+        scoreDashBoard.textContent = "you won";
+      }
+
+      if (choise === 'paper'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/paper-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/paper-emoji.png";
+        scoreDashBoard.textContent = 'tie';
+      }
+
+      if (choise === 'scissor'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/paper-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/scissors-emoji.png";
+        scoreDashBoard.textContent = 'you lost';
+      }
+    }
+    
+    else if (moveYouPicked === "scissors"){
+      if (choise === 'rock'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/scissors-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/rock-emoji.png";
+        scoreDashBoard.textContent = 'you lost';
+      }
+
+      if (choise === 'paper'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/scissors-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/paper-emoji.png";
+        scoreDashBoard.textContent = "you won";
+      }
+
+      if (choise === 'scissor'){
+        you.src = "https://supersimple.dev/projects/rock-paper-scissors/images/scissors-emoji.png";
+        computer.src = "https://supersimple.dev/projects/rock-paper-scissors/images/scissors-emoji.png";
+        scoreDashBoard.textContent = 'tie';
+      }
+    }
+
+
+    if (scoreDashBoard.textContent === "tie"){
+      playScore.ties++;
+      tieChoise.textContent = playScore.ties;
+    }
+    else if (scoreDashBoard.textContent === "you won"){
+      playScore.wins++ ;
+      winChoise.textContent = playScore.wins;
+    }
+    else if (scoreDashBoard.textContent === "you lost"){
+      playScore.losses++;
+      loseChoise.textContent = playScore.losses;
+    }
+
+    localStorage.setItem('score' , JSON.stringify(playScore));
+
+    // alert(`you choosed ${moveYouPicked} and the computer choosed ${choise} \n,${scoreDashBoard.textContent}`)
+}
+
+
+
+
+</script>
+</body>
+</html>
